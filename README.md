@@ -62,8 +62,9 @@ extension/           The Chrome extension, Manifest V3
 App.tsx, components/ Website: demo, recipes, inspector, dictionary, install guide
 tests/unit/          299 tests with node:test
 tests/e2e/           210 tests with Playwright, against the real extension
-store/               Web Store kit: listing text, screenshots, promo tile
 ```
+
+`store/` is the submission kit: the listing text, the screenshots, the promo tile and the script that makes them. It is kept out of the repo, so it lives only on the maintainer's machine. `npm run store:images` needs it.
 
 The website and the extension share `engine.js` and `content.js`, so the demo behaves exactly like the extension.
 
@@ -94,6 +95,8 @@ Where each output goes:
 | `public/mathlogic-extension.zip` | Chrome Web Store, Package tab, and attached to the GitHub release |
 | `store/screenshot-*.png`, `store/promo-small-440x280.png` | Web Store listing graphics, 5 screenshots and 1 tile |
 | text in `store/STORE_LISTING.md` | the listing fields, field by field |
+
+The `store/` folder is not in the repo. Keep your own copy of it.
 
 ### Steps for a release
 
