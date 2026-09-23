@@ -1,6 +1,6 @@
 // Typed bridge to the shared plain-JS engine used by the Chrome extension.
-import './extension/engine.js';
-import './extension/content.js';
+import '../extension/engine.js';
+import '../extension/content.js';
 import type { Entry, Settings, OutputMode, Recipe } from './types';
 
 interface EngineApi {

@@ -8,3 +8,4 @@ public/privacy.html
 
 # submission kit, kept locally: listing text, screenshots, promo tile
 store/
+.DS_Store

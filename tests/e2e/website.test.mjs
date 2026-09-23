@@ -13,7 +13,14 @@ let srv, browser;
 
 before(async () => {
   execFileSync('npm', ['run', '-s', 'zip:ext'], { cwd: ROOT }); // the site must ship the current extension
-  await build({ root: ROOT, logLevel: 'error', build: { outDir: OUT, emptyOutDir: true } });
+  // configFile is explicit: vite looks for it next to `root` otherwise, and the
+  // config lives one level up
+  await build({
+    configFile: path.join(ROOT, 'vite.config.ts'),
+    root: path.join(ROOT, 'site'),
+    logLevel: 'error',
+    build: { outDir: OUT, emptyOutDir: true },
+  });
   srv = await serve(OUT);
   browser = await chromium.launch();
 });

@@ -53,15 +53,16 @@ It only reports. It never rewrites what you typed, and Esc hides it.
 ## What is in this folder
 
 ```
-extension/           The Chrome extension, Manifest V3
-  engine.js          Shared engine: entries, renderer, parser, checker, settings
-  content.js         Shared controller: keys, caret, popup, boxes, warnings
-  options.js/.html   Settings, playground, inspector, recipes, cheat sheet
-  popup.js/.html     Toolbar popup
-  background.js      Service worker, used only for the optional AI call
-App.tsx, components/ Website: demo, recipes, inspector, dictionary, install guide
-tests/unit/          299 tests with node:test
-tests/e2e/           210 tests with Playwright, against the real extension
+extension/         The Chrome extension, Manifest V3
+  engine.js        Shared engine: entries, renderer, parser, checker, settings
+  content.js       Shared controller: keys, caret, popup, boxes, warnings
+  options.js/.html Settings, playground, inspector, recipes, cheat sheet
+  popup.js/.html   Toolbar popup
+  background.js    Service worker, used only for the optional AI call
+site/              The demo site: App.tsx, components/, the typed engine bridge
+public/            Static files the site ships, including the privacy policy
+tests/unit/        299 tests with node:test
+tests/e2e/         210 tests with Playwright, against the real extension
 ```
 
 `store/` is the submission kit: the listing text, the screenshots, the promo tile and the script that makes them. It is kept out of the repo, so it lives only on the maintainer's machine. `npm run store:images` needs it.
@@ -111,7 +112,7 @@ The `store/` folder is not in the repo. Keep your own copy of it.
 
 ### The website
 
-`App.tsx` and `components/` are a demo of the same engine, plus the privacy policy the store listing points at. `npm run build` writes it to `dist/` and `npm run dev` serves it locally. Nothing deploys it automatically. The privacy policy has to stay reachable at the URL in the listing, so keep that page online wherever it is hosted.
+`site/` is a demo of the same engine, plus the privacy policy the store listing points at. `npm run build` writes it to `dist/` and `npm run dev` serves it locally. Nothing deploys it automatically. The privacy policy has to stay reachable at the URL in the listing, so keep that page online wherever it is hosted.
 
 ## Design rules
 
