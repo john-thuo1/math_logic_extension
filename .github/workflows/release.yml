@@ -1,0 +1,47 @@
+name: release extension
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      # empty unless the four repository secrets are set, which is what the
+      # upload step checks before talking to the store
+      CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+      REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
+      EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:all
+
+      - name: the tag must match the manifest version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          manifest=$(node -p "require('./extension/manifest.json').version")
+          test "$tag" = "$manifest" || { echo "tag $tag does not match manifest $manifest"; exit 1; }
+
+      - run: npm run zip:ext
+
+      - name: notes for this version only
+        run: awk "/^## ${GITHUB_REF_NAME#v}\$/{f=1;next} /^## /{f=0} f" CHANGELOG.md > notes.md
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: public/mathlogic-extension.zip
+          body_path: notes.md
+
+      # Sends the package to the existing store item and submits it for review.
+      # Google still reviews it. Skipped when the secrets are absent.
+      - name: upload to the Chrome Web Store
+        if: env.CLIENT_ID != ''
+        run: npx --yes chrome-webstore-upload-cli@3 upload --source public/mathlogic-extension.zip --auto-publish

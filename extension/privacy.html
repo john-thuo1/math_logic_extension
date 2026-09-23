@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Math Logic: Privacy Policy</title>
+<style>
+  :root{--bg:#f8fafc;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e2e8f0;--acc:#4f46e5}
+  @media (prefers-color-scheme:dark){:root{--bg:#111114;--card:#1b1b20;--ink:#e5e7eb;--mute:#9ca3af;--line:#2d2d36;--acc:#818cf8}}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  main{max-width:760px;margin:0 auto;padding:40px 20px 64px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px}
+  h1{font-size:28px;line-height:1.2;margin:0 0 4px}
+  h2{font-size:18px;margin:28px 0 6px}
+  p,li{color:var(--ink)}
+  .muted{color:var(--mute);font-size:14px}
+  code{font:14px ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(127,127,127,.12);border-radius:5px;padding:1px 5px}
+  table{width:100%;border-collapse:collapse;font-size:15px;margin-top:6px}
+  th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:13px;color:var(--mute);text-transform:uppercase;letter-spacing:.05em}
+  a{color:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+<div class="card">
+  <h1>Privacy Policy</h1>
+  <p class="muted">Math Logic browser extension · Effective September 23, 2026</p>
+
+  <p><b>Summary:</b> Math Logic works inside your browser. It has no server of its own, no accounts, no analytics and no ads. What you type stays on your device. The one exception is a feature you switch on yourself: optional AI conversion sends only the phrase you're converting to the AI provider you choose, using your own API key.</p>
+
+  <h2>1. What happens to the text you type</h2>
+  <p>To offer suggestions, Math Logic reads the text in the box you're typing in, mainly the characters just before your cursor. For example, it looks for <code>\forall</code>, <code>x^2</code> or <code>/math …</code>. This happens entirely in your browser. The text is not stored, logged or sent anywhere.</p>
+  <p>Math Logic does not act in password fields, and it ignores code blocks and code editors.</p>
+
+  <h2>2. Optional AI conversion</h2>
+  <p>AI conversion is <b>off by default</b>. It works only after you add an API key and tick "I understand. Turn on AI conversion." in Settings. When it's on:</p>
+  <ul>
+    <li><b>What is sent:</b> only the phrase being converted. That's the text after <code>/math</code>, or the text you selected before pressing Alt+M. Nothing else you type is sent, and no page content, URLs or browsing history are sent.</li>
+    <li><b>When:</b> only when the built-in offline converter can't understand the phrase, or on every conversion if you tick "Always use AI".</li>
+    <li><b>Where:</b> directly from your browser to the provider you chose (for example Groq, Google Gemini or OpenRouter, or a server you set up yourself). It never passes through any server run by Math Logic.</li>
+    <li><b>Provider terms apply:</b> that provider handles the phrase under its own privacy policy and terms. Some free tiers allow the provider to use requests to improve its services.</li>
+  </ul>
+  <p>You can turn AI conversion off at any time by unticking the box in Settings.</p>
+
+  <h2>3. What is stored, and where</h2>
+  <table>
+    <tr><th>Data</th><th>Where it's stored</th></tr>
+    <tr><td>Your settings: output format, smart operators, paused sites, your own shortcuts</td><td>Chrome's extension storage. If you're signed in to Chrome with sync on, Chrome syncs these across your own devices.</td></tr>
+    <tr><td>Your AI provider, API key and AI on/off choice</td><td>This browser's local extension storage only. It is never synced.</td></tr>
+  </table>
+  <p>Math Logic doesn't collect any of this. It stays in your browser, and removing the extension deletes it.</p>
+
+  <h2>4. What we don't do</h2>
+  <ul>
+    <li>We don't sell or transfer your data to anyone.</li>
+    <li>We don't use or transfer your data for purposes unrelated to the extension's single purpose, which is converting math and logic notation as you type.</li>
+    <li>We don't use or transfer your data to determine creditworthiness or for lending purposes.</li>
+    <li>No analytics, tracking, advertising or fingerprinting.</li>
+  </ul>
+
+  <h2>5. Permissions, and why they're needed</h2>
+  <ul>
+    <li><b>Read and change data on all websites:</b> needed to work in the text box you're typing in, on any site. It is used only as described in section 1.</li>
+    <li><b>Storage:</b> saves your settings.</li>
+    <li><b>Active tab:</b> lets the toolbar popup show which site you're on, so you can pause Math Logic there.</li>
+    <li><b>Access to api.groq.com, generativelanguage.googleapis.com, openrouter.ai and localhost:</b> used only for optional AI conversion, and only to the provider you picked. Other custom addresses are requested only if you enter one.</li>
+  </ul>
+
+  <h2>6. Children</h2>
+  <p>Math Logic doesn't knowingly collect any information from anyone, including children.</p>
+
+  <h2>7. Changes</h2>
+  <p>If this policy changes, the updated version will be published at this address with a new effective date. Any material change affecting AI conversion will also be shown in the extension's Settings.</p>
+
+  <h2>8. Contact</h2>
+  <p>Questions or requests: <a href="mailto:johnthuo2024@outlook.com">johnthuo2024@outlook.com</a></p>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+body { background: #f8fafc; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: #0f172a; }
+.math-font { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', 'Times New Roman', serif; }
+.composer:empty:before { content: attr(data-placeholder); color: #94a3b8; pointer-events: none; }
+.composer { white-space: pre-wrap; word-break: break-word; }
+kbd { font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; background: #f1f5f9; border: 1px solid #e2e8f0; border-bottom-width: 2px; border-radius: 5px; padding: 0 5px; color: #334155; }

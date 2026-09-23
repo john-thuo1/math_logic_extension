@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>frame</title>
+<style>
+  @font-face{font-family:Inter;font-weight:400;src:url(inter-latin-400-normal.woff2) format('woff2')}
+  @font-face{font-family:Inter;font-weight:800;src:url(inter-latin-800-normal.woff2) format('woff2')}
+  @font-face{font-family:Inter;font-weight:600;src:url(inter-latin-600-normal.woff2) format('woff2')}
+  *{box-sizing:border-box} html,body{margin:0;height:100%;overflow:hidden}
+  body{font:16px/1.5 Inter,"DejaVu Sans",sans-serif;background:#eef0fb;color:#0f172a}
+  .cap{height:132px;display:flex;align-items:center;gap:22px;padding:0 64px;background:linear-gradient(120deg,#4338ca,#6d28d9);color:#fff}
+  .cap img{width:64px;height:64px;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  .cap h1{margin:0;font-size:38px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .cap p{margin:6px 0 0;font-size:19px;opacity:.9}
+  .stage{height:668px;display:flex;align-items:flex-start;justify-content:center;gap:56px;padding:0 40px}
+  .shot{display:block;border-radius:14px 14px 0 0;box-shadow:0 -4px 30px rgba(49,46,129,.18);width:1200px}
+  .stage.side{align-items:center}
+  .stage.side .shot{width:auto;height:600px;border-radius:14px;box-shadow:0 18px 50px rgba(49,46,129,.25)}
+  .points{max-width:520px}
+  .points h2{font-size:30px;font-weight:800;margin:0 0 18px;letter-spacing:-.01em}
+  .points li{font-size:20px;margin:12px 0;color:#334155}
+  .points b{color:#0f172a}
+</style></head>
+<body>
+  <div class="cap"><img src="icon128.png" alt=""><div><h1 id="title"></h1><p id="sub"></p></div></div>
+  <div class="stage" id="stage"><div class="points" id="points" hidden></div><img class="shot" id="shot" alt=""></div>
+<script>
+  window.setFrame = function (o) {
+    document.getElementById('title').innerHTML = o.title;
+    document.getElementById('sub').innerHTML = o.sub;
+    var st = document.getElementById('stage');
+    st.className = 'stage' + (o.side ? ' side' : '');
+    var pts = document.getElementById('points');
+    pts.hidden = !o.points;
+    if (o.points) pts.innerHTML = o.points;
+    return new Promise(function (r) { var i = document.getElementById('shot'); i.onload = r; i.src = o.src; });
+  };
+</script>
+</body></html>

@@ -1,0 +1,42 @@
+{
+  "name": "mathlogic",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run zip:ext && vite build",
+    "preview": "vite preview",
+    "zip:ext": "mkdir -p public && cp extension/privacy.html public/privacy.html && rm -f public/mathlogic-extension.zip && cd extension && zip -qr ../public/mathlogic-extension.zip . -x '*.DS_Store'",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node --test \"tests/unit/*.test.mjs\"",
+    "test:e2e": "node --test --test-concurrency=1 \"tests/e2e/*.test.mjs\"",
+    "test:all": "npm run typecheck && npm test && npm run test:e2e",
+    "setup:browsers": "playwright install chromium",
+    "store:images": "node store/make-screenshots.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "esbuild": "^0.28.2",
+    "playwright": "^1.56.1",
+    "prosemirror-commands": "^1.7.2",
+    "prosemirror-history": "^1.5.0",
+    "prosemirror-keymap": "^1.2.3",
+    "prosemirror-model": "^1.25.11",
+    "prosemirror-schema-basic": "^1.2.4",
+    "prosemirror-state": "^1.4.4",
+    "prosemirror-view": "^1.42.4",
+    "quill": "^2.0.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

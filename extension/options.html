@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Math Logic settings</title>
+<link rel="stylesheet" href="ui.css">
+<style>
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 60px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  header img{width:40px;height:40px;border-radius:10px}
+  section{margin-top:18px}
+  section h2{font-size:16px;margin-bottom:4px}
+  section > p{margin:0 0 12px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:720px){.grid2{grid-template-columns:1fr}.seg{grid-template-columns:repeat(2,1fr)}}
+  .how{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media (max-width:720px){.how{grid-template-columns:1fr 1fr}}
+  .how div{background:var(--soft);border-radius:11px;padding:10px 12px;font-size:12.5px}
+  .how b{display:block;margin-bottom:3px}
+  .play{min-height:92px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);font-size:15px;white-space:pre-wrap}
+  .play:empty:before{content:attr(data-ph);color:var(--mute)}
+  label.f{display:block;font-size:12px;font-weight:600;color:var(--mute);margin:10px 0 4px}
+  .check{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:13px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);padding:6px 8px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card)}
+  td{padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.g{font-family:var(--math);font-size:17px;white-space:nowrap}
+  td.g.word{font:600 12px system-ui,-apple-system,sans-serif}
+  td code{white-space:nowrap}
+  .sheet{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+  #status{font-size:12px;margin-left:10px}
+  .recipes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:720px){.recipes{grid-template-columns:1fr}}
+  .recipe{min-width:0;border:1px solid var(--line);border-radius:11px;padding:12px 14px;background:var(--card)}
+  .recipe h3{font-size:14px;margin:0 0 8px}
+  .recipe .keys{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px}
+  .recipe .keys code{white-space:pre-wrap;overflow-wrap:anywhere}
+  .recipe .res{overflow-x:auto;overflow-wrap:anywhere;margin:8px 0 6px;font-family:var(--math);font-size:15px;white-space:pre-wrap;background:var(--soft);border-radius:8px;padding:6px 9px}
+  .recipe .tip{font-size:12px;color:var(--mute)}
+  td .hint{display:block;font-size:12px;color:var(--mute);margin-top:2px}
+  .tree{margin:10px 0 0;padding:12px 14px;background:var(--soft);border-radius:10px;font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre;overflow:auto;min-height:24px}
+  .cats{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+  .cats button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:3px 10px;font:12px system-ui,sans-serif;cursor:pointer}
+  .cats button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="icons/icon128.png" alt="">
+    <div><h1 style="font-size:22px">Math Logic</h1><div class="muted">Math &amp; logic notation, typed straight into ChatGPT, Claude, Gemini, or any other text box.</div></div>
+  </header>
+
+  <div class="card">
+    <h2 style="font-size:16px;margin-bottom:10px">How to use it</h2>
+    <div class="how">
+      <div><b>1 · Backslash</b>Type <code>\in</code>, <code>\forall</code>, <code>\RR</code>… pick with <kbd>Tab</kbd>, or press <kbd>Space</kbd> after an exact name.</div>
+      <div><b>2 · Templates</b><code>\frac</code>, <code>\sumto</code>, <code>\intab</code> insert ⬚ slots. Use <kbd>Tab</kbd> to jump between them. Sizes go in the name: <code>\mat2x3</code>, <code>\vec5</code>, <code>\cases3</code>.</div>
+      <div><b>3 · Just type</b><code>-&gt;</code> <code>&lt;=</code> <code>!=</code> <code>x^2</code> <code>a_n</code> turn into → ≤ ≠ x² aₙ.</div>
+      <div><b>4 · Plain English</b><code>/math sum of 1/n^2 from n=1 to infinity</code> then <kbd>Enter</kbd>. Or select text and press <kbd>Alt</kbd>+<kbd>M</kbd>.</div>
+    </div>
+    <label class="f">Try it here (works exactly like a chat box)</label>
+    <div class="play" contenteditable="true" id="play" data-ph="Type here… e.g.  \forall x \in \RR, x^2 >= 0   or   /math limit of sin(x)/x as x approaches 0"></div>
+  </div>
+
+  <section class="card">
+    <h2>Output format</h2>
+    <p class="muted">What gets inserted when you pick a symbol or convert a phrase.</p>
+    <div class="seg" id="modes"></div>
+    <label class="check"><input type="checkbox" id="wrapLatex"> <span>Wrap converted LaTeX in math delimiters, so the chat treats it as math.</span></label>
+    <div style="margin:6px 0 0 26px;max-width:520px">
+      <select id="latexDelims" data-mathlogic-off>
+        <option value="auto">Automatic for each chat site: ChatGPT \( … \), Claude $$ … $$, Gemini and others $ … $</option>
+        <option value="dollar">Always $ … $</option>
+        <option value="paren">Always \( … \)</option>
+        <option value="double">Always $$ … $$</option>
+      </select>
+    </div>
+    <label class="f" for="target" style="margin-top:14px">Target syntax for ASCII output</label>
+    <select id="target" data-mathlogic-off style="max-width:520px"></select>
+    <div class="small muted" id="targetHelp" style="margin-top:6px"></div>
+    <label class="check"><input type="checkbox" id="bracketCheck"> <span><b>Formula check</b>: when a line looks like a formula, a small note points out the worst problem first. What will not parse, such as unclosed brackets, an operator with nothing on one side or an empty <code>( )</code>. What the target will not accept. What parses but may mean something else, such as a bare <code>X</code> on a finite trace. Style slips such as mixing <code>⇒</code> with <code>→</code>. It only warns and never changes what you typed. <kbd>Esc</kbd> hides it.</span></label>
+    <label class="check"><input type="checkbox" id="smartOps"> <span><b>Smart operators</b> (Unicode/Auto): <code>-&gt;</code> → , <code>=&gt;</code> ⇒ , <code>&lt;=&gt;</code> ⇔ , <code>&lt;=</code> ≤ , <code>&gt;=</code> ≥ , <code>!=</code> ≠ , <code>+-</code> ± , <code>x^2</code> x² , <code>x_1</code> x₁. Code blocks and code editors are skipped.</span></label>
+  </section>
+
+  <section class="card">
+    <div class="row"><h2>AI conversion for /math <span class="pill" id="aiPill"></span></h2></div>
+    <p class="muted">Optional. The built-in converter handles common phrasing offline, for free. It's the default and never sends anything anywhere. Turn this on to have an AI handle phrases the offline converter can't understand.</p>
+    <div class="disclosure" id="disclosure">
+      <b>What gets sent, and where</b>
+      <ul>
+        <li><b>Only the phrase you're converting:</b> the text after <code>/math</code>, or the text you selected before pressing Alt+M. Nothing else you type, and no page content, is ever sent.</li>
+        <li><b>Only when needed:</b> if the offline converter can't understand the phrase, or on every conversion if you tick "Always use AI" below.</li>
+        <li><b>Sent straight from your browser to the provider you choose,</b> using your own API key. Math Logic has no server of its own. The provider's privacy policy applies to that text.</li>
+        <li><b>Your key stays on this computer.</b> It's stored only in this browser's local extension storage and isn't synced to your Google account.</li>
+      </ul>
+      <label class="check"><input type="checkbox" id="consent"> <span><b>I understand. Turn on AI conversion.</b> You can turn it off here at any time.</span></label>
+      <div class="small" style="margin-top:6px"><a href="privacy.html" target="_blank">Privacy policy</a></div>
+    </div>
+    <div class="grid2">
+      <div>
+        <label class="f" for="provider">Provider</label>
+        <select id="provider"></select>
+        <div class="small muted" style="margin-top:6px" id="provHelp"></div>
+      </div>
+      <div>
+        <label class="f" for="apiKey">API key</label>
+        <input type="password" id="apiKey" placeholder="paste your key" autocomplete="off" data-mathlogic-off>
+        <div class="small" style="margin-top:6px"><a id="keyLink" target="_blank" rel="noopener">Get a free key →</a></div>
+      </div>
+      <div>
+        <label class="f" for="model">Model</label>
+        <input type="text" id="model" data-mathlogic-off>
+      </div>
+      <div id="baseWrap">
+        <label class="f" for="baseUrl">Base URL (OpenAI-compatible)</label>
+        <input type="text" id="baseUrl" data-mathlogic-off>
+      </div>
+    </div>
+    <label class="check"><input type="checkbox" id="preferAI"> <span>Always use AI for /math, even when the offline converter is confident. This is slower and uses more of your quota.</span></label>
+    <div class="row" style="justify-content:flex-start;margin-top:12px">
+      <button class="btn" id="saveAI">Save &amp; test</button><span id="status" class="muted"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Your own shortcuts</h2>
+    <p class="muted">One per line: <code>trigger = output</code>. Use <code>[]</code> for a Tab slot. Then type <code>\trigger</code> anywhere.</p>
+    <textarea id="custom" rows="5" data-mathlogic-off placeholder="ker = \ker&#10;ip = ⟨[], []⟩&#10;bayes = P(A|B) = P(B|A)P(A)/P(B)"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>Paused sites</h2>
+    <p class="muted">Math Logic stays off on these sites (one hostname per line). You can also pause a site from the toolbar popup.</p>
+    <textarea id="sites" rows="3" data-mathlogic-off placeholder="docs.google.com"></textarea>
+  </section>
+
+  <section class="card" id="inspect">
+    <h2>Formula inspector</h2>
+    <p class="muted">Paste a formula to see what sits inside what. A requirement that ended up inside <code>G(start ⇒ …)</code> instead of beside it looks almost the same in the text and obvious in the tree.</p>
+    <textarea id="finput" rows="3" data-mathlogic-off spellcheck="false" placeholder="G(start -> (X(processing) &amp; F(done))) &amp; F(checkpoint)"></textarea>
+    <div class="row" style="justify-content:flex-start;gap:10px;margin-top:8px"><span id="ftop" class="pill"></span><span id="fissue" class="small muted"></span></div>
+    <pre id="ftree" class="tree"></pre>
+  </section>
+
+  <section class="card" id="guide">
+    <h2>Step-by-step recipes</h2>
+    <p class="muted">Type exactly what's shown, in any chat box or the playground above. Every recipe here is checked by our automated tests.</p>
+    <div id="recipes" class="recipes"></div>
+  </section>
+
+  <section class="card">
+    <div class="row"><h2>Cheat sheet</h2><input type="text" id="q" placeholder="Search: union, integral, ≤, alpha…" style="max-width:280px" data-mathlogic-off></div>
+    <div class="cats" id="cats"></div>
+    <div class="sheet"><table><thead><tr><th>Symbol</th><th>Shortcut</th><th>Meaning</th><th>LaTeX</th><th>ASCII</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </section>
+</div>
+<script src="engine.js"></script>
+<script src="content.js"></script>
+<script src="settings.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

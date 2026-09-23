@@ -1,0 +1,7 @@
+{
+  // Static site on Cloudflare Workers. `npm run build` fills dist/, wrangler uploads it.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "math-logic",
+  "compatibility_date": "2026-09-01",
+  "assets": { "directory": "./dist" }
+}

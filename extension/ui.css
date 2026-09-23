@@ -1,0 +1,37 @@
+:root{--bg:#f8fafc;--card:#fff;--ink:#0f172a;--mute:#64748b;--line:#e2e8f0;--soft:#f1f5f9;--acc:#4f46e5;--acc-soft:#eef2ff;--acc-ink:#3730a3;--ok:#047857;--warn:#b45309;
+  --math:"Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman",serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#111114;--card:#1b1b20;--ink:#e5e7eb;--mute:#9ca3af;--line:#2d2d36;--soft:#24242b;--acc:#818cf8;--acc-soft:#26264a;--acc-ink:#c7d2fe;--ok:#34d399;--warn:#fbbf24}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{margin:0;line-height:1.2}
+a{color:var(--acc)}
+code,kbd{font-family:var(--mono);font-size:.88em}
+kbd{background:var(--soft);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px}
+code{background:var(--soft);border-radius:5px;padding:1px 5px}
+.math{font-family:var(--math)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.muted{color:var(--mute)}
+.small{font-size:12px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 6px;cursor:pointer;font:inherit;text-align:center}
+.seg button b{display:block;font-size:13px}
+.seg button span{display:block;font-size:11px;color:var(--mute);font-family:var(--math)}
+.seg button.on{border-color:var(--acc);background:var(--acc-soft);color:var(--acc-ink)}
+.switch{position:relative;width:38px;height:22px;flex:none}
+.switch input{opacity:0;width:0;height:0}
+.switch i{position:absolute;inset:0;background:var(--line);border-radius:22px;transition:.15s;cursor:pointer}
+.switch i:before{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s}
+.switch input:checked+i{background:var(--acc)}
+.switch input:checked+i:before{transform:translateX(16px)}
+input[type=text],input[type=password],select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+textarea{font-family:var(--mono);font-size:13px}
+input:focus,select:focus,textarea:focus,[contenteditable]:focus{outline:2px solid var(--acc);outline-offset:-1px}
+.btn{border:0;background:var(--acc);color:#fff;border-radius:9px;padding:8px 14px;font:600 13px system-ui,sans-serif;cursor:pointer}
+.btn.ghost{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.pill{display:inline-block;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:600;background:var(--soft);color:var(--mute)}
+.pill.ok{background:rgba(4,120,87,.12);color:var(--ok)}
+.pill.warn{background:rgba(180,83,9,.12);color:var(--warn)}
+.disclosure{margin:0 0 14px;padding:12px 14px;border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:10px;background:var(--acc-soft);font-size:13px}
+.disclosure ul{margin:6px 0 4px;padding-left:18px}
+.disclosure li{margin:3px 0}

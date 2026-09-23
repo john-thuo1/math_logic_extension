@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="ui.css">
+<style>
+  body{width:340px;padding:14px}
+  .brand{display:flex;align-items:center;gap:9px}
+  .brand img{width:28px;height:28px;border-radius:7px}
+  .sec{margin-top:14px}
+  .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);margin-bottom:6px}
+  .ex{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:12.5px}
+  .ex code{white-space:nowrap}
+  .ex span{font-family:var(--math);font-size:14px}
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="brand"><img src="icons/icon48.png" alt=""><div><h1 style="font-size:15px">Math Logic</h1><div class="muted small">Math autocomplete for AI chats</div></div></div>
+    <label class="switch" title="Turn Math Logic on/off everywhere"><input type="checkbox" id="enabled"><i></i></label>
+  </div>
+
+  <div class="sec card" style="padding:10px 12px">
+    <div class="row"><div><b id="site">this site</b><div class="muted small" id="siteHint">Active on this site</div></div>
+    <label class="switch"><input type="checkbox" id="siteOn"><i></i></label></div>
+  </div>
+
+  <div class="sec">
+    <div class="lbl">Insert symbols as</div>
+    <div class="seg" id="modes"></div>
+    <div class="muted small" id="modeHint" style="margin-top:6px"></div>
+  </div>
+
+  <div class="sec row">
+    <div><b>Smart operators</b><div class="muted small">-&gt; → &nbsp; &lt;= ≤ &nbsp; != ≠ &nbsp; x^2 x² &nbsp; a_n aₙ</div></div>
+    <label class="switch"><input type="checkbox" id="smartOps"><i></i></label>
+  </div>
+
+  <div class="sec card" style="padding:10px 12px">
+    <div class="row"><b>/math conversion</b><span class="pill" id="aiPill">offline</span></div>
+    <div class="muted small" id="aiHint" style="margin-top:4px"></div>
+  </div>
+
+  <div class="sec">
+    <div class="lbl">Try in any chat box</div>
+    <div class="ex">
+      <code>\forall</code><span>∀</span>
+      <code>\RR</code><span>ℝ</span>
+      <code>\mat2x3</code><span>[[⬚, ⬚, ⬚], [⬚, ⬚, ⬚]]</span>
+      <code>\dfadef</code><span>M = (Q, Σ, δ, q₀, F) where …</span>
+      <code>/math x squared is at least 0</code><span>x² ≥ 0</span>
+    </div>
+  </div>
+
+  <div class="sec row">
+    <button class="btn" id="opts" style="flex:1">Guide, settings &amp; cheat sheet</button>
+  </div>
+<script src="engine.js"></script>
+<script src="settings.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

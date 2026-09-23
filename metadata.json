@@ -1,0 +1,6 @@
+{
+  "name": "MathLogic — Math & Logic Notation Assistant",
+  "description": "A Grammarly-like assistant for mathematical and logical notation. Inline autocomplete, templates, and natural-language-to-notation conversion inside ChatGPT, Claude, Gemini and any text box.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

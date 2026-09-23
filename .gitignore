@@ -1,0 +1,8 @@
+node_modules
+dist
+tests/e2e/.cache
+
+# built by npm run zip:ext, attached to a GitHub release instead
+public/mathlogic-extension.zip
+public/privacy.html
+.DS_Store
