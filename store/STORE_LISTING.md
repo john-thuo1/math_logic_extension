@@ -5,10 +5,10 @@ Everything to paste into the [developer dashboard](https://chrome.google.com/web
 ## Before you submit
 
 - [x] Contact email in the privacy policy: johnthuo2024@outlook.com. If it changes, edit `extension/privacy.html` and run `npm run zip:ext`.
-- [x] Privacy policy online at https://math-logic.johnmatrixthuo.workers.dev/privacy.html. Redeploy the site after any change to it.
-- [ ] Run `npm run test:all`, then upload `public/mathlogic-extension.zip`.
+- [x] Privacy policy online at https://math-logic.johnmatrixthuo.workers.dev/privacy.html. It is served by the website build, so republish that page after any change to `extension/privacy.html`.
+- [ ] Run `npm run test:all`, then `npm run zip:ext`, then upload `public/mathlogic-extension.zip`.
 - [ ] Upload 5 screenshots from `store/` and the promo tile.
-- [ ] Deploy the website so the live pages match this version.
+- [ ] Check the privacy policy URL still loads. It has to stay online for as long as the item is listed.
 
 ## 1. Package
 
@@ -136,7 +136,6 @@ The optional AI feature is off by default and needs the user's own API key plus 
 
 ## Updating later
 
-1. Raise `"version"` in `extension/manifest.json`.
-2. Run `npm run test:all`, then `npm run build`.
+1. Raise `"version"` in `extension/manifest.json` and add a section to `CHANGELOG.md`.
+2. Run `npm run test:all`, then `npm run zip:ext`.
 3. Upload the new zip under Package, update any listing text that changed, and submit.
-4. Deploy the website so the live pages match.

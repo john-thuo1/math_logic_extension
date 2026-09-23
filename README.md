@@ -2,6 +2,8 @@
 
 Type math and logic notation straight into ChatGPT, Claude, Gemini or any other text box. No separate equation editor, no copy and paste.
 
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/oghlchnfcdnkjdobefjplbefaomcephi)**
+
 | You type | You get (Unicode mode) |
 |---|---|
 | `\forall x \in \RR` then Space | `∀x ∈ ℝ` |
@@ -78,11 +80,11 @@ npm run store:images     # regenerates the store screenshots
 
 ## Releasing
 
-The zip and the built site are made by the build, so they are not in the repo.
+The zip is made by the build, so it is not in the repo.
 
 ```bash
 npm run test:all     # must be green first
-npm run build        # writes public/mathlogic-extension.zip and dist/
+npm run zip:ext      # writes public/mathlogic-extension.zip
 ```
 
 Where each output goes:
@@ -90,27 +92,23 @@ Where each output goes:
 | Output | Where it goes |
 |---|---|
 | `public/mathlogic-extension.zip` | Chrome Web Store, Package tab, and attached to the GitHub release |
-| `dist/` | the website host |
 | `store/screenshot-*.png`, `store/promo-small-440x280.png` | Web Store listing graphics, 5 screenshots and 1 tile |
 | text in `store/STORE_LISTING.md` | the listing fields, field by field |
-
-### Automated, once the secrets are set
-
-`.github/workflows/test.yml` runs the whole suite on every push and pull request.
-
-`.github/workflows/deploy.yml` builds and deploys the site to Cloudflare on every push to main. It needs two repository secrets: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The worker name and the assets folder are in `wrangler.jsonc`.
-
-`.github/workflows/release.yml` runs on a `v*` tag. It checks the tag against the manifest version, runs the tests, builds the zip, creates the GitHub release with that version's changelog section, and then uploads the package to the store item and submits it for review. The upload step is skipped unless four secrets exist: `CWS_CLIENT_ID`, `CWS_CLIENT_SECRET`, `CWS_REFRESH_TOKEN` and `CWS_EXTENSION_ID`.
-
-The store API covers the package only. Listing text, screenshots and privacy answers stay manual in the dashboard, and every upload still goes through Google's review.
 
 ### Steps for a release
 
 1. Raise `"version"` in `extension/manifest.json` and add a section to `CHANGELOG.md`.
 2. Run the two commands above.
-3. Tag and push: `git tag v1.1.0 && git push --tags`. With the secrets set, the release and the store upload happen from there.
-4. Without the secrets, create the GitHub release by hand, attach the zip, and upload it in the dashboard.
-5. Always update the existing store item, never a new one, so the ID and the users are kept.
+3. Tag and push: `git tag v1.1.0 && git push --tags`.
+4. Update the existing store item, never a new one, so the ID and the users are kept.
+
+`.github/workflows/test.yml` runs the whole suite on every push and pull request.
+
+`.github/workflows/release.yml` runs on a `v*` tag. It checks the tag against the manifest version, runs the tests, builds the zip and creates the GitHub release with that version's changelog section. It can also upload the package to the store item, which it skips unless four secrets exist: `CWS_CLIENT_ID`, `CWS_CLIENT_SECRET`, `CWS_REFRESH_TOKEN` and `CWS_EXTENSION_ID`. The store API covers the package only. Listing text, screenshots and privacy answers stay manual in the dashboard, and every upload still goes through Google's review.
+
+### The website
+
+`App.tsx` and `components/` are a demo of the same engine, plus the privacy policy the store listing points at. `npm run build` writes it to `dist/` and `npm run dev` serves it locally. Nothing deploys it automatically. The privacy policy has to stay reachable at the URL in the listing, so keep that page online wherever it is hosted.
 
 ## Design rules
 
